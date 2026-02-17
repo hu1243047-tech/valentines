@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Jaan ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Sacramento&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- 1. Basic Setup --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle at center, #ffdde1 0%, #ee9ca7 100%);
+            font-family: 'Poppins', sans-serif;
+            overflow: hidden;
+        }
+
+        /* --- 2. Floating Background Elements --- */
+        .bg-heart {
+            position: absolute;
+            top: -10vh;
+            animation: floatDown linear infinite;
+            font-size: 20px;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        @keyframes floatDown {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 0; }
+            20% { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- 3. Envelope --- */
+        .envelope-wrapper {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: hoverEffect 3s ease-in-out infinite;
+        }
+
+        @keyframes hoverEffect {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .envelope-wrapper.open {
+            animation: none;
+            cursor: default;
+        }
+
+        .envelope {
+            position: relative;
+            width: 320px;
+            height: 220px;
+            background: #d90429;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            display: flex;
+            justify-content: center;
+            border-radius: 5px;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 130px solid #ef233c;
+            transform-origin: top;
+            transition: transform 0.6s 0.2s cubic-bezier(0.4, 0, 0.2, 1), z-index 0.6s;
+            z-index: 4;
+        }
+
+        .pocket {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-bottom: 110px solid #b21e35;
+            z-index: 3;
+            border-radius: 0 0 5px 5px;
+        }
+
+        /* --- 4. The Card (Internal) --- */
+        .card {
+            position: absolute;
+            bottom: 0;
+            width: 280px;
+            height: 190px;
+            background: #fff0f5; /* Lavender Blush */
+            border-radius: 8px;
+            transition: transform 0.8s 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 2; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+            border: 3px solid #ffccd5;
+            overflow: hidden; /* Keeps content inside */
+        }
+
+        /* --- 5. Input Screen Styling --- */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .input-group h2 {
+            font-size: 1rem;
+            color: #d63384;
+            font-weight: 600;
+        }
+
+        input {
+            width: 80%;
+            padding: 5px;
+            border: none;
+            border-bottom: 2px solid #ff8fa3;
+            background: transparent;
+            outline: none;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            color: #a4161a;
+        }
+
+        button {
+            margin-top: 5px;
+            padding: 8px 20px;
+            background: #e63946;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(230, 57, 70, 0.3);
+        }
+
+        /* --- 6. BEAUTIFUL TEXT STYLING (NEW) --- */
+        .message-view {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            padding: 10px;
+        }
+
+        /* "Happy Valentine's Day" */
+        .header-text {
+            font-family: 'Sacramento', cursive;
+            font-size: 1.8rem;
+            line-height: 1;
+            /* Gradient Text */
+            background: -webkit-linear-gradient(45deg, #ff0055, #ff5e62);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+            filter: drop-shadow(1px 1px 0px rgba(0,0,0,0.1));
+        }
+
+        /* "Meri Jaan" */
+        .sub-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 0px;
+            font-weight: 600;
+        }
+
+        /* "The Name (Alok)" */
+        .name-text {
+            font-family: 'Great Vibes', cursive; /* Fancy Calligraphy Font */
+            font-size: 2.8rem; /* Big Size */
+            color: #d90429;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(217, 4, 41, 0.2);
+            animation: pulseName 2s infinite ease-in-out;
+            padding: 0 10px;
+        }
+
+        @keyframes pulseName {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); text-shadow: 0 0 10px rgba(217, 4, 41, 0.4); }
+        }
+
+        /* --- 7. Animations --- */
+        .envelope-wrapper.open .flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope-wrapper.open .card { transform: translateY(-150px); z-index: 5; }
+        .hidden { display: none !important; }
+
+        .burst-heart {
+            position: absolute;
+            font-size: 20px;
+            pointer-events: none;
+            animation: burstOut 1s forwards;
+        }
+        
+        @keyframes burstOut {
+            0% { transform: translate(0,0) scale(0.5); opacity: 1; }
+            100% { transform: translate(var(--tx), var(--ty)) scale(1.2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bg-hearts"></div>
+
+    <div class="envelope-wrapper" id="envelopeWrapper">
+        <div class="envelope">
+            <div class="flap"></div>
+            <div class="pocket"></div>
+            
+            <div class="card">
+                <div id="inputView" class="input-group">
+                    <h2>Whose heart is this?</h2>
+                    <input type="text" id="nameInput" placeholder="Enter Name..." autocomplete="off">
+                    <button id="revealBtn">Open ❤️</button>
+                </div>
+
+                <div id="messageView" class="message-view">
+                    <div class="header-text">Happy<br>Valentine's Day</div>
+                    <div class="sub-text">Meri Jaan</div>
+                    <div id="finalName" class="name-text"></div> <div style="font-size: 1.2rem; margin-top: 5px;">❤️💋</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const envelopeWrapper = document.getElementById('envelopeWrapper');
+        const revealBtn = document.getElementById('revealBtn');
+        const nameInput = document.getElementById('nameInput');
+        const inputView = document.getElementById('inputView');
+        const messageView = document.getElementById('messageView');
+        const finalName = document.getElementById('finalName');
+
+        envelopeWrapper.addEventListener('click', (e) => {
+            if (e.target.tagName !== 'INPUT' && e.target.tagName !== 'BUTTON') {
+                envelopeWrapper.classList.add('open');
+            }
+        });
+
+        revealBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const name = nameInput.value.trim();
+            if (name) {
+                inputView.classList.add('hidden');
+                messageView.style.display = 'flex';
+                
+                // Only setting the name here
+                finalName.innerText = name; 
+                
+                createHeartBurst();
+            } else {
+                nameInput.placeholder = "Enter Name!";
+                nameInput.style.borderBottom = "2px solid red";
+            }
+        });
+
+        function createHeartBurst() {
+            const colors = ['❤️', '💖', '🌹'];
+            const container = document.querySelector('.card');
+            const rect = container.getBoundingClientRect();
+
+            for (let i = 0; i < 30; i++) {
+                const heart = document.createElement('div');
+                heart.classList.add('burst-heart');
+                heart.innerHTML = colors[Math.floor(Math.random() * colors.length)];
+                
+                const angle = Math.random() * Math.PI * 2;
+                const dist = 50 + Math.random() * 60;
+                
+                heart.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+                heart.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+                
+                heart.style.left = '50%';
+                heart.style.top = '50%';
+
+                container.appendChild(heart);
+                setTimeout(() => heart.remove(), 1000);
+            }
+        }
+
+        // Background rain
+        setInterval(() => {
+            const h = document.createElement('div');
+            h.classList.add('bg-heart');
+            h.innerHTML = '❤️';
+            h.style.left = Math.random() * 100 + 'vw';
+            h.style.animationDuration = Math.random() * 3 + 3 + 's';
+            document.getElementById('bg-hearts').appendChild(h);
+            setTimeout(()=>h.remove(), 6000);
+        }, 500);
+    </script>
+</body>
+</html>
+
